@@ -29,8 +29,8 @@ MY_QUERY
 
 sleep 10
 
-sudo rm /etc/nginx/sites-enabled/default
-sudo rm /etc/nginx/sites-available/default
+#sudo rm /etc/nginx/sites-enabled/default
+#sudo rm /etc/nginx/sites-available/default
 sudo sed -i -e "\$a127.0.1.1  /etc/hosts
 
 sudo wget https://raw.githubusercontent.com/eljws/raspberrypi/master/wordpress -P /etc/nginx/sites-available/$askurl
