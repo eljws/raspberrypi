@@ -1,0 +1,45 @@
+#!/bin/bash
+#start this script by typing: bash <(curl -sL https://raw.githubusercontent.com/eljws/raspberrypi/master/wordpressinstallscript)
+echo "      #                                 #####                                    ";
+echo "      #   ##   #    # #    # #####     #     # #    # #   # #    # #        ##   ";
+echo "      #  #  #  #   #  #    # #    #    #       ##  ##  # #  #   #  #       #  #  ";
+echo "      # #    # ####   #    # #####      #####  # ## #   #   ####   #      #    # ";
+echo "#     # ###### #  #   #    # #    #          # #    #   #   #  #   #      ###### ";
+echo "#     # #    # #   #  #    # #    #    #     # #    #   #   #   #  #      #    # ";
+echo " #####  #    # #    #  ####  #####      #####  #    #   #   #    # ###### #    # ";
+
+read -p "Website name?  Enter and hit enter: " askurl
+sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get install -y nginx php php-fpm mariadb-server php-mysql && sudo apt-get install nginx-full certbot -y
+
+
+sudo mysql --user=root
+
+DROP USER 'root'@'localhost';
+CREATE USER 'root'@'localhost' IDENTIFIED BY 'password';
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' WITH GRANT OPTION;
+
+sleep 10
+
+sudo rm /etc/nginx/sites-enabled/default
+sudo rm /etc/nginx/sites-available/default
+sudo sed -i -e "\$a127.0.1.1  /etc/hosts
+
+sudo wget https://raw.githubusercontent.com/eljws/raspberrypi/master/wordpress -P /etc/nginx/sites-available/$askurl
+sudo sed -i "s/xxx/$askurl/g" /etc/nginx/sites-available/$askurl
+sudo ln -s /etc/nginx/sites-available/$askrul /etc/nginx/sites-enabled/$askurl
+sudo rm /etc/nginx/nginx.conf
+sudo wget https://raw.githubusercontent.com/eljws/raspberrypi/master/nginxconfigmaster -P /etc/nginx/nginx.conf
+
+cd /var/www/html 
+sudo wget http://wordpress.org/latest.tar.gz
+sudo tar xzf latest.tar.gz
+sudo rm -rf latest.tar.gz
+sudo chown -R www-data /var/www/html/wordpress
+
+cd
+
+
+
+sudo certbot certonly  --authenticator standalone -d $askurl  --pre-hook "service nginx stop" --post-hook "service nginx start"
+
+
