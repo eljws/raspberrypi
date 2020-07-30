@@ -18,7 +18,7 @@ DROP USER 'root'@'localhost';
 CREATE USER 'root'@'localhost' IDENTIFIED BY 'password';
 GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' WITH GRANT OPTION;
 
-sleep 10
+sleep 1000
 
 sudo rm /etc/nginx/sites-enabled/default
 sudo rm /etc/nginx/sites-available/default
@@ -28,7 +28,7 @@ sudo wget https://raw.githubusercontent.com/eljws/raspberrypi/master/wordpress -
 sudo sed -i "s/xxx/$askurl/g" /etc/nginx/sites-available/$askurl
 sudo ln -s /etc/nginx/sites-available/$askrul /etc/nginx/sites-enabled/$askurl
 sudo rm /etc/nginx/nginx.conf
-sudo wget https://raw.githubusercontent.com/eljws/raspberrypi/master/nginxconfigmaster -P /etc/nginx/nginx.conf
+sudo wget https://raw.githubusercontent.com/eljws/raspberrypi/master/nginxconfigwordpress -P /etc/nginx/nginx.conf
 
 cd /var/www/html 
 sudo wget http://wordpress.org/latest.tar.gz
@@ -39,7 +39,7 @@ sudo chown -R www-data /var/www/html/wordpress
 cd
 
 
-
+sleep 1000
 sudo certbot certonly  --authenticator standalone -d $askurl  --pre-hook "service nginx stop" --post-hook "service nginx start"
 
 
