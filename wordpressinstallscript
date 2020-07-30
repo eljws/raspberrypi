@@ -39,7 +39,7 @@ sudo mv wordpress $askurl
 sudo sed -i "s/xxx/$askurl/g" /etc/nginx/sites-available/$askurl
 sudo ln -s /etc/nginx/sites-available/$askrul /etc/nginx/sites-enabled/$askurl
 sudo rm /etc/nginx/nginx.conf
-sudo wget https://raw.githubusercontent.com/eljws/raspberrypi/master/nginxconfigwordpress -P /etc/nginx
+sudo wget https://raw.githubusercontent.com/eljws/raspberrypi/master/nginxconfwordpress -P /etc/nginx
 cd /etc/nginx/
 sudo mv nginxconfigwordpress nginx.conf
 
