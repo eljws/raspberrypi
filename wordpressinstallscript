@@ -9,22 +9,25 @@ echo "#     # #    # #   #  #    # #    #    #     # #    #   #   #   #  #      
 echo " #####  #    # #    #  ####  #####      #####  #    #   #   #    # ###### #    # ";
 
 read -p "Website name?  Enter and hit enter: " askurl
+read -p "SQLRoot Password?  Enter and hit enter: " rootpword
+read -p "SQL user ?  Enter and hit enter: " sqluser
+read -p "SQL user password ?  Enter and hit enter: " sqluserpword
+
 sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get install -y nginx php php-fpm mariadb-server php-mysql && sudo apt-get install nginx-full certbot -y
 
 
-sudo mysql --user=root
-
+mysql -u root <<MY_QUERY
 DROP USER 'root'@'localhost';
-CREATE USER 'root'@'localhost' IDENTIFIED BY 'password';
+CREATE USER 'root'@'localhost' IDENTIFIED BY '$rootpword';
 GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' WITH GRANT OPTION;
-exit
+MY_QUERY
 
-sleep 1000
-mysql -u root -ppassword
+mysql -u root -p $rootpword <<MY_QUERY2
 create database wordpress;
+GRANT ALL PRIVILEGES ON wordpress.* TO "$sqluser"@"localhost" IDENTIFIED BY '$sqluserpword';
+MY_QUERY2
 
-GRANT ALL PRIVILEGES ON wordpress.* TO "admin"@"localhost" IDENTIFIED BY 'password';
-exit
+sleep 100
 
 sudo rm /etc/nginx/sites-enabled/default
 sudo rm /etc/nginx/sites-available/default
@@ -45,7 +48,7 @@ sudo chown -R www-data /var/www/html/wordpress
 cd
 
 
-sleep 1000
+sleep 100
 sudo certbot certonly  --authenticator standalone -d $askurl  --pre-hook "service nginx stop" --post-hook "service nginx start"
 
 
