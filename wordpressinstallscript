@@ -22,7 +22,7 @@ CREATE USER 'root'@'localhost' IDENTIFIED BY '$rootpword';
 GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' WITH GRANT OPTION;
 MY_QUERY
 
-mysql -u root -p $rootpword <<MY_QUERY2
+mysql -u root  <<MY_QUERY2
 create database wordpress;
 GRANT ALL PRIVILEGES ON wordpress.* TO "$sqluser"@"localhost" IDENTIFIED BY '$sqluserpword';
 MY_QUERY2
