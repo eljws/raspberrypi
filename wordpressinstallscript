@@ -17,8 +17,14 @@ sudo mysql --user=root
 DROP USER 'root'@'localhost';
 CREATE USER 'root'@'localhost' IDENTIFIED BY 'password';
 GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' WITH GRANT OPTION;
+exit
 
 sleep 1000
+mysql -u root -ppassword
+create database wordpress;
+
+GRANT ALL PRIVILEGES ON wordpress.* TO "admin"@"localhost" IDENTIFIED BY 'password';
+exit
 
 sudo rm /etc/nginx/sites-enabled/default
 sudo rm /etc/nginx/sites-available/default
