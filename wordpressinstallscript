@@ -16,21 +16,21 @@ read -p "SQL user password ?  Enter and hit enter: " sqluserpword
 sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get install -y nginx php php-fpm mariadb-server php-mysql && sudo apt-get install nginx-full certbot -y
 
 
-#sudo mysql -u root <<MY_QUERY
-#DROP USER 'root'@'localhost';
-#CREATE USER 'root'@'localhost' IDENTIFIED BY '$rootpword';
-#GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' WITH GRANT OPTION;
-#MY_QUERY
+sudo mysql -u root <<MY_QUERY
+DROP USER 'root'@'localhost';
+CREATE USER 'root'@'localhost' IDENTIFIED BY '$rootpword';
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' WITH GRANT OPTION;
+MY_QUERY
 
-#sudo mysql -uroot -p$rootpword  <<MY_QUERY
-#create database wordpress;
-#GRANT ALL PRIVILEGES ON wordpress.* TO "$sqluser"@"localhost" IDENTIFIED BY '$sqluserpword';
-#MY_QUERY
+sudo mysql -uroot -p$rootpword  <<MY_QUERY
+create database wordpress;
+GRANT ALL PRIVILEGES ON wordpress.* TO "$sqluser"@"localhost" IDENTIFIED BY '$sqluserpword';
+MY_QUERY
 
 sleep 10
 
-#sudo rm /etc/nginx/sites-enabled/default
-#sudo rm /etc/nginx/sites-available/default
+sudo rm /etc/nginx/sites-enabled/default
+sudo rm /etc/nginx/sites-available/default
 sudo sed -i -e "\$a127.0.1.1    $askurl"  /etc/hosts
 
 cd /etc/nginx/sites-available/
@@ -53,7 +53,7 @@ sudo chown -R www-data /var/www/html/wordpress
 cd
 
 
-sleep 100
+sleep 10
 sudo certbot certonly  --authenticator standalone -d $askurl  --pre-hook "service nginx stop" --post-hook "service nginx start"
 
 
