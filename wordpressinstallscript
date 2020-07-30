@@ -22,10 +22,10 @@ sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get install -y nginx 
 #GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' WITH GRANT OPTION;
 #MY_QUERY
 
-sudo mysql -uroot -p$rootpword  <<MY_QUERY
-create database wordpress;
-GRANT ALL PRIVILEGES ON wordpress.* TO "$sqluser"@"localhost" IDENTIFIED BY '$sqluserpword';
-MY_QUERY
+#sudo mysql -uroot -p$rootpword  <<MY_QUERY
+#create database wordpress;
+#GRANT ALL PRIVILEGES ON wordpress.* TO "$sqluser"@"localhost" IDENTIFIED BY '$sqluserpword';
+#MY_QUERY
 
 sleep 10
 
