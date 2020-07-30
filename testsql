@@ -1,4 +1,4 @@
-#!/bin/bash ash <(curl -sL https://raw.githubusercontent.com/eljws/raspberrypi/master/testsql)
+#!/bin/bash bash <(curl -sL https://raw.githubusercontent.com/eljws/raspberrypi/master/testsql)
 mysql -u root -psecret <<MY_QUERY
 USE mysql
 SHOW tables
