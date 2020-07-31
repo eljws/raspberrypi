@@ -14,8 +14,9 @@ read -p "SQL user ?  Enter and hit enter: " sqluser
 read -p "SQL user password ?  Enter and hit enter: " sqluserpword
 
 sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get install -y nginx php php-fpm mariadb-server php-mysql && sudo apt-get install nginx-full certbot -y
-
-
+#monitor hdd tools iostat
+sudo apt-get install sysstat
+#
 sudo mysql -u root <<MY_QUERY
 DROP USER 'root'@'localhost';
 CREATE USER 'root'@'localhost' IDENTIFIED BY '$rootpword';
